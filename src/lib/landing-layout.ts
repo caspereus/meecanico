@@ -36,3 +36,9 @@ export const bodyIntroClass =
 
 export const sectionLabelLinkClass =
   "text-sm font-medium text-link md:text-base";
+
+export const marketingButtonClass =
+  "h-10 px-5 text-sm font-semibold [&_svg:not([class*='size-'])]:size-4";
+
+export const marketingNavButtonClass =
+  "h-9 min-w-0 px-3 text-sm font-medium sm:px-4 [&_svg:not([class*='size-'])]:size-4";

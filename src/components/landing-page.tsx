@@ -1,3 +1,4 @@
+import { LandingCtaSection } from "@/components/landing/landing-cta-section";
 import { LandingHeroSection } from "@/components/landing/landing-hero-section";
 import { LandingPlayground } from "@/components/landing/landing-playground";
 import { LandingSection } from "@/components/landing/landing-section";
@@ -103,6 +104,7 @@ export function LandingPage() {
             </p>
           </div>
         </LandingSection>
+        <LandingCtaSection />
       </main>
 
       <MarketingFooter />
