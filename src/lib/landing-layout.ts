@@ -8,25 +8,16 @@ export const landingSectionClass =
   "mx-auto w-full border-b border-border/40 bg-background";
 
 export const landingHeroContentClass =
-  "relative z-20 pb-24 pt-40 text-center sm:pb-28 sm:pt-44 md:pt-48 lg:pb-32 lg:pt-52 xl:pb-36";
-
-export const landingHeroSurfaceClass =
-  "bg-gradient-to-b from-sky-50 via-sky-50/50 to-white dark:from-[#08111f] dark:via-[#101827] dark:to-[#16130d]";
-
-export const landingDreamyPanelClass =
-  "bg-gradient-to-br from-sky-100/95 via-[#EBF4FF]/80 to-indigo-100/70 dark:from-sky-950/40 dark:via-indigo-950/30 dark:to-sky-900/20";
-
-export const landingPracticePanelClass =
-  "bg-gradient-to-br from-violet-100/90 via-[#F3EEFF]/80 to-sky-100/65 dark:from-violet-950/30 dark:via-indigo-950/20 dark:to-sky-950/25";
+  "relative pb-16 pt-10 text-center sm:pb-20 sm:pt-12 md:pb-24 md:pt-16 lg:pb-28 lg:pt-20 xl:pb-32 xl:pt-24";
 
 export const landingIllustrationStageClass =
   "relative overflow-hidden rounded-2xl border border-border/50 bg-neutral-50 dark:bg-neutral-900/50";
 
-export const landingCtaSurfaceClass =
-  "bg-gradient-to-b from-sky-50/40 to-background dark:from-sky-950/20 dark:to-background";
-
 export const heroHeadingClass =
-  "font-serif text-4xl font-semibold tracking-tight text-balance leading-tight md:text-5xl xl:text-[3.25rem]";
+  "font-serif text-5xl font-semibold tracking-tight text-balance leading-[1.08] sm:text-6xl md:text-7xl lg:text-[4.5rem]";
+
+export const heroIntroClass =
+  "text-lg leading-relaxed text-muted-foreground sm:text-xl md:text-2xl";
 
 export const sectionHeadingClass =
   "font-serif text-3xl font-semibold tracking-tight sm:text-4xl xl:text-5xl";

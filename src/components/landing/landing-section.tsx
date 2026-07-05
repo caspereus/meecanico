@@ -21,7 +21,10 @@ export function LandingSection({
   frameClassName,
 }: LandingSectionProps) {
   return (
-    <section id={id} className={cn(landingSectionClass, className)}>
+    <section
+      id={id}
+      className={cn(landingSectionClass, id && "scroll-mt-16", className)}
+    >
       <div className={landingShellClass}>
         <div className={cn(landingFrameClass, frameClassName)}>{children}</div>
       </div>

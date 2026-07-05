@@ -8,15 +8,15 @@ type TypingTestPromptProps = {
 };
 
 export function TypingTestPrompt({ state }: TypingTestPromptProps) {
-  const { phrase, index, charStates, isFinished } = state;
+  const { phrase, index, charStates } = state;
 
   return (
     <div
-      className="min-h-[5.5rem] select-none font-mono text-xl leading-relaxed tracking-wide sm:min-h-[6.5rem] sm:text-2xl sm:leading-loose"
+      className="select-none break-words text-xl font-medium leading-relaxed tracking-wide sm:text-2xl sm:leading-loose md:text-3xl"
       aria-label="Typing test prompt"
     >
       {phrase.split("").map((char, i) => {
-        const isCursor = i === index && !isFinished;
+        const isCursor = i === index;
 
         return (
           <span key={`${i}-${char}`} className="relative">
@@ -31,7 +31,7 @@ export function TypingTestPrompt({ state }: TypingTestPromptProps) {
                 charStates[i] === "correct" && "text-foreground",
                 charStates[i] === "incorrect" && "text-destructive",
                 charStates[i] === "pending" &&
-                  (i < index ? "text-foreground/70" : "text-muted-foreground/45")
+                  (i < index ? "text-foreground/85" : "text-muted-foreground/70")
               )}
             >
               {char}
@@ -39,7 +39,7 @@ export function TypingTestPrompt({ state }: TypingTestPromptProps) {
           </span>
         );
       })}
-      {index === phrase.length && !isFinished ? (
+      {index === phrase.length ? (
         <span
           aria-hidden
           className="ml-px inline-block h-[1.1em] w-0.5 animate-pulse bg-brand align-middle"

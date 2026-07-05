@@ -93,11 +93,20 @@ export function useTypingTest() {
 
         if (nextTimeLeft <= 0) {
           clearTimer();
+          const elapsedMs = startTimeRef.current
+            ? Date.now() - startTimeRef.current
+            : 0;
+
           return {
             ...current,
             timeLeft: 0,
             isFinished: true,
             isRunning: false,
+            wpm: calculateWpm(current.correctChars, elapsedMs),
+            accuracy: calculateAccuracy(
+              current.correctChars,
+              current.incorrectChars
+            ),
           };
         }
 

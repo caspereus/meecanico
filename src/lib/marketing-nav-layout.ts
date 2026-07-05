@@ -1,16 +1,19 @@
+import { landingShellClass } from "@/lib/landing-layout";
+
+export const marketingNavHeightClass = "h-16";
+
+export const marketingNavScrollOffset = 64;
+
+export const marketingNavShellClass = landingShellClass;
+
+export const marketingNavFrameClass =
+  "border-x border-border/40 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out";
+
 export const marketingNavInnerClass =
-  "mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between px-4 sm:px-6 lg:px-8";
-
-export const marketingNavLinkDesktopClass =
-  "rounded-md px-2.5 py-1.5 text-xs font-medium hover:bg-muted/60";
-
-export const marketingNavLinkMobileClass =
-  "rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-muted/60";
-
-export const marketingNavLinkActiveClass = "bg-muted font-semibold";
-
-export const marketingNavDropdownClass =
-  "rounded-lg border border-border/60 bg-background/95 p-1 shadow-lg backdrop-blur-xl";
+  "flex h-16 min-w-0 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 md:px-8 lg:px-10";
 
 export const brandLogoClass =
-  "font-brand text-xl font-bold tracking-tight text-foreground sm:text-2xl";
+  "inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-85";
+
+export const brandLogoTextClass =
+  "truncate font-brand text-lg font-semibold tracking-tight sm:text-xl md:text-2xl";

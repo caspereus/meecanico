@@ -12,7 +12,11 @@ import {
   type KeyboardThemeName,
 } from "@/components/ui/keyboard";
 import { SwitchSelect } from "@/components/landing/switch-select";
-import { TypingTestPrompt } from "@/components/landing/typing-test-prompt";
+import { TypingLiveStats } from "@/components/landing/typing-live-stats";
+import {
+  TypingTestStage,
+  type TypingTestStageHandle,
+} from "@/components/landing/typing-test-stage";
 import {
   DEFAULT_SWITCH_PROFILE,
   DEMO_SWITCH_PROFILES,
@@ -40,6 +44,7 @@ function readStoredTheme(): KeyboardThemeName {
 
 export function LandingPlayground() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<TypingTestStageHandle>(null);
   const [profile, setProfile] = useState<SwitchProfile>(DEFAULT_SWITCH_PROFILE);
   const [keyboardTheme, setKeyboardTheme] =
     useState<KeyboardThemeName>(DEFAULT_KEYBOARD_THEME);
@@ -94,9 +99,9 @@ export function LandingPlayground() {
   );
 
   const handleRestart = useCallback(() => {
-    restart();
+    stageRef.current?.restart();
     containerRef.current?.focus();
-  }, [restart]);
+  }, []);
 
   return (
     <div
@@ -107,10 +112,10 @@ export function LandingPlayground() {
         "ring-1 ring-border/40 dark:bg-neutral-950/40"
       )}
     >
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4">
         <span className="text-sm text-muted-foreground">Type to hear it</span>
 
-        <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-5">
           <button
             type="button"
             onClick={() => setSoundEnabled((value) => !value)}
@@ -119,41 +124,49 @@ export function LandingPlayground() {
               "transition-colors hover:bg-background/80 active:scale-[0.98]"
             )}
           >
-            {soundEnabled ? (
-              <Volume2 className="size-3.5" />
-            ) : (
-              <VolumeX className="size-3.5" />
-            )}
+            <span
+              className="t-icon-swap size-3.5"
+              data-state={soundEnabled ? "a" : "b"}
+            >
+              <Volume2 className="t-icon size-3.5" data-icon="a" />
+              <VolumeX className="t-icon size-3.5" data-icon="b" />
+            </span>
             Audio
           </button>
 
-          <div className="flex items-center gap-4 font-mono text-sm tabular-nums text-muted-foreground">
-            <span>{state.timeLeft} s</span>
-            <span>{state.wpm} wpm</span>
-            <span>{state.accuracy} % acc</span>
+          {state.isRunning && !state.isFinished ? (
+            <TypingLiveStats state={state} />
+          ) : null}
+        </div>
+      </div>
+
+      <TypingTestStage ref={stageRef} state={state} onRestart={restart} />
+
+      <div className="relative mt-10 w-full">
+        <div
+          className={cn(
+            "overflow-x-auto py-2 [-webkit-overflow-scrolling:touch]",
+            "[scrollbar-width:none] sm:[scrollbar-width:thin]",
+            "[&::-webkit-scrollbar]:hidden sm:[&::-webkit-scrollbar]:block"
+          )}
+        >
+          <div className="mx-auto w-fit origin-top scale-[0.58] sm:scale-[0.72] md:scale-[0.88] lg:scale-100">
+            <Keyboard
+              theme={keyboardTheme}
+              enableHaptics={soundEnabled}
+              enableSound={false}
+              visibilityRootRef={containerRef}
+              onKeyEvent={onKeyEvent}
+            />
           </div>
         </div>
+        <p className="pointer-events-none absolute inset-x-0 -bottom-1 text-center text-[10px] text-muted-foreground/70 sm:hidden">
+          Swipe to explore keyboard
+        </p>
       </div>
 
-      <TypingTestPrompt state={state} />
-
-      <div className="mt-10 w-full overflow-x-auto py-2">
-        <div className="mx-auto w-fit origin-top scale-[0.72] sm:scale-[0.88] md:scale-100">
-          <Keyboard
-            theme={keyboardTheme}
-            enableHaptics={soundEnabled}
-            enableSound={false}
-            onKeyEvent={onKeyEvent}
-          />
-        </div>
-      </div>
-
-      <p className="mt-3 text-center text-[11px] text-muted-foreground">
-        This keyboard + {profile.name} · Preview only — 19 profiles in the Mac app
-      </p>
-
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+      <div className="mt-8 flex flex-col gap-4 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
           <SwitchSelect
             profiles={DEMO_SWITCH_PROFILES}
             selected={profile}
@@ -175,12 +188,6 @@ export function LandingPlayground() {
         </button>
       </div>
 
-      {state.isFinished ? (
-        <p className="mt-4 text-center text-sm text-muted-foreground">
-          Time&apos;s up — {state.wpm} wpm at {state.accuracy}% accuracy. Hit
-          Restart to go again.
-        </p>
-      ) : null}
     </div>
   );
 }

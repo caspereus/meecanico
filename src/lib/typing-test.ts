@@ -1,10 +1,12 @@
 export const TYPING_PHRASES = [
-  "meecanico hears keys not words type anywhere on your mac with thocky switch sounds",
-  "pick holy panda or mx blue and feel every keystroke with spatial three d audio",
-  "menu bar control global hotkeys and a floating wpm hud built for mac typists",
-  "privacy first key codes only never typed text no network no analytics no cloud",
-  "download drag to applications grant input monitoring and start typing in any app",
-  "nineteen switch profiles from cherry kailh topre and more one menu bar icon",
+  "type on your mac and hear every key with a clean low delay sound",
+  "open mail or slack and type like you are on a real keyboard",
+  "pick a sound from the menu bar and start typing in any app",
+  "every key press plays a soft sound through your headphones or speakers",
+  "grant access once then type in safari notes mail and every other app",
+  "try a few switch sounds preview each one and pick your favorite today",
+  "the quick brown fox jumps over the lazy dog near the old stone wall",
+  "a good cup of coffee and a quiet room make typing feel easy and calm",
 ];
 
 export const DEFAULT_TYPING_PHRASE = TYPING_PHRASES[0];
@@ -78,4 +80,4 @@ export function calculateWpm(correctChars: number, elapsedMs: number): number {
   return Math.round(correctChars / 5 / minutes);
 }
 
-export const TYPING_TEST_DURATION_SEC = 15;
+export const TYPING_TEST_DURATION_SEC = 30;

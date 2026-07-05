@@ -1,49 +1,31 @@
-import Link from "next/link";
-
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { DownloadCtaButton } from "@/components/download-cta-button";
+import { SectionAnchorButton } from "@/components/section-anchor-button";
 import {
-  bodyIntroClass,
   heroHeadingClass,
+  heroIntroClass,
   landingHeroContentClass,
   landingShellClass,
 } from "@/lib/landing-layout";
+import { marketingNavHeightClass } from "@/lib/marketing-nav-layout";
 
 export function LandingHeroSection() {
   return (
     <section className="relative border-b border-border/40 bg-background">
-      <div className={landingShellClass}>
+      <div className={`${landingShellClass} relative`}>
         <div className="border-x border-border/40">
+          <div aria-hidden className={marketingNavHeightClass} />
           <div className={landingHeroContentClass}>
-            <p className="mb-4 text-sm font-medium text-muted-foreground">
-              Free · macOS 14+ · No account required
-            </p>
             <h1 className={heroHeadingClass}>
               Your Mac keyboard, finally mechanical.
             </h1>
-            <p className={`mx-auto mt-5 max-w-2xl ${bodyIntroClass}`}>
-              Meecanico plays low-latency switch sounds everywhere you type —
-              with 19 profiles, 3D spatial audio, and zero keystroke logging.
+            <p className={`mx-auto mt-6 max-w-2xl sm:mt-8 ${heroIntroClass}`}>
+              Mechanical switch sounds in every app. 19 profiles to choose from.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link
-                href="/download"
-                className={cn(
-                  buttonVariants({ size: "lg" }),
-                  "h-10 px-5 text-sm font-semibold active:scale-[0.97]"
-                )}
-              >
-                Download for macOS
-              </Link>
-              <Link
-                href="/#try"
-                className={cn(
-                  buttonVariants({ variant: "secondary", size: "lg" }),
-                  "h-10 px-5 text-sm font-semibold active:scale-[0.97]"
-                )}
-              >
-                Try it live
-              </Link>
+            <div className="mt-8 flex flex-wrap justify-center gap-3 sm:mt-10">
+              <DownloadCtaButton />
+              <SectionAnchorButton sectionId="try" variant="secondary">
+                Try it
+              </SectionAnchorButton>
             </div>
           </div>
         </div>

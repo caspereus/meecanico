@@ -19,7 +19,7 @@ export function GlobalClickSound() {
   const { playSound } = useSwitchSound(DEFAULT_SWITCH_PROFILE);
 
   useEffect(() => {
-    const handlePointerDown = (event: PointerEvent) => {
+    const handleMouseDown = (event: MouseEvent) => {
       if (event.button !== 0 || !shouldPlayClickSound(event.target)) {
         return;
       }
@@ -27,7 +27,7 @@ export function GlobalClickSound() {
       playSound("down", CLICK_SOUND_KEY);
     };
 
-    const handlePointerUp = (event: PointerEvent) => {
+    const handleMouseUp = (event: MouseEvent) => {
       if (event.button !== 0 || !shouldPlayClickSound(event.target)) {
         return;
       }
@@ -35,12 +35,12 @@ export function GlobalClickSound() {
       playSound("up", CLICK_SOUND_KEY);
     };
 
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("pointerup", handlePointerUp);
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("pointerup", handlePointerUp);
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [playSound]);
 

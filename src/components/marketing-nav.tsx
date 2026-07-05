@@ -2,27 +2,21 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { BrandLogo } from "@/components/brand-logo";
+import { DownloadCtaButton } from "@/components/download-cta-button";
+import { Button } from "@/components/optics/button";
+import { marketingNavButtonClass } from "@/lib/landing-layout";
 import { cn } from "@/lib/utils";
 import {
   brandLogoClass,
+  marketingNavFrameClass,
   marketingNavInnerClass,
-  marketingNavLinkDesktopClass,
-  marketingNavLinkMobileClass,
+  marketingNavShellClass,
 } from "@/lib/marketing-nav-layout";
-
-const navLinks = [
-  { href: "/#try", label: "Try it" },
-  { href: "/#features", label: "Features" },
-  { href: "/#switches", label: "Switches" },
-  { href: "/#privacy", label: "Privacy" },
-];
 
 export function MarketingNav() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -32,93 +26,35 @@ export function MarketingNav() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-[background,border-color] duration-300",
-        scrolled
-          ? "border-b border-border/40 bg-background/95 backdrop-blur-xl"
-          : "bg-background"
-      )}
-    >
-      <div className={marketingNavInnerClass}>
-        <Link href="/" className={brandLogoClass}>
-          Meecanico
-        </Link>
-
-        <nav
-          className="hidden items-center gap-1 md:flex"
-          aria-label="Main navigation"
+    <header className="fixed inset-x-0 top-0 z-40">
+      <div className={marketingNavShellClass}>
+        <div
+          className={cn(
+            marketingNavFrameClass,
+            scrolled
+              ? "border-b border-border/40 bg-background/90 backdrop-blur-xl"
+              : "bg-background/70 backdrop-blur-md"
+          )}
         >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={marketingNavLinkDesktopClass}
-            >
-              {link.label}
+          <div className={marketingNavInnerClass}>
+            <Link href="/" className={cn(brandLogoClass, "min-w-0 shrink")}>
+              <BrandLogo />
             </Link>
-          ))}
-        </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Link
-            href="/changelog"
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "sm" }),
-              "h-9 px-3 text-xs"
-            )}
-          >
-            Changelog
-          </Link>
-          <Link
-            href="/download"
-            className={cn(buttonVariants({ size: "sm" }), "h-9 px-3 text-xs")}
-          >
-            Download
-          </Link>
-        </div>
-
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((open) => !open)}
-        >
-          {mobileOpen ? <X /> : <Menu />}
-        </Button>
-      </div>
-
-      {mobileOpen ? (
-        <nav
-          className="border-t border-border/40 bg-background/95 px-4 py-3 backdrop-blur-xl md:hidden"
-          aria-label="Mobile navigation"
-        >
-          <ul className="flex flex-col gap-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={cn("block", marketingNavLinkMobileClass)}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li className="mt-2 flex flex-col gap-2 border-t border-border/40 pt-3">
-              <Link
-                href="/download"
-                className={cn(buttonVariants(), "w-full")}
-                onClick={() => setMobileOpen(false)}
+            <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+              <Button
+                render={<Link href="/changelog" />}
+                nativeButton={false}
+                variant="ghost"
+                className={cn(marketingNavButtonClass, "hidden sm:inline-flex")}
               >
-                Download for macOS
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      ) : null}
+                Changelog
+              </Button>
+              <DownloadCtaButton nav />
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
