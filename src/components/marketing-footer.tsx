@@ -8,28 +8,12 @@ const footerColumns = [
     title: "Product",
     links: [
       { href: "/#features", label: "Features" },
-      { href: "/#switches", label: "Switch profiles" },
-      { href: "/download", label: "Download" },
       { href: "/changelog", label: "Changelog" },
     ],
   },
   {
-    title: "Legal",
-    links: [
-      { href: "/privacy", label: "Privacy policy" },
-      { href: "/terms", label: "Terms of use" },
-    ],
-  },
-  {
     title: "Support",
-    links: [
-      { href: "mailto:hello@meecanico.app", label: "Contact" },
-      {
-        href: "https://github.com/YOUR_ORG/Keyboo",
-        label: "GitHub",
-        external: true,
-      },
-    ],
+    links: [{ href: "mailto:hello@meecanico.app", label: "Contact" }],
   },
 ];
 
@@ -64,17 +48,9 @@ export function MarketingFooter() {
               — with 19 switch profiles, 3D spatial audio, and zero keystroke
               logging.
             </p>
-            <a
-              href="https://github.com/YOUR_ORG/Keyboo"
-              className="mt-4 inline-block text-sm text-muted-foreground transition-colors hover:text-foreground"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source on GitHub
-            </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8">
             {footerColumns.map((column) => (
               <div key={column.title}>
                 <h3 className="font-heading text-sm font-semibold text-foreground">
@@ -83,12 +59,10 @@ export function MarketingFooter() {
                 <ul className="mt-3 space-y-2">
                   {column.links.map((link) => (
                     <li key={link.label}>
-                      {"external" in link && link.external ? (
+                      {link.href.startsWith("mailto:") ? (
                         <a
                           href={link.href}
                           className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                          target="_blank"
-                          rel="noopener noreferrer"
                         >
                           {link.label}
                         </a>

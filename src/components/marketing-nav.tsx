@@ -109,16 +109,6 @@ export function MarketingNav() {
             ))}
             <li className="mt-2 flex flex-col gap-2 border-t border-border/40 pt-3">
               <Link
-                href="/changelog"
-                className={cn(
-                  buttonVariants({ variant: "ghost" }),
-                  "w-full justify-start"
-                )}
-                onClick={() => setMobileOpen(false)}
-              >
-                Changelog
-              </Link>
-              <Link
                 href="/download"
                 className={cn(buttonVariants(), "w-full")}
                 onClick={() => setMobileOpen(false)}
