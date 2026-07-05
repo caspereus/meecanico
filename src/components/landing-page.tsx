@@ -3,11 +3,7 @@ import { LandingPlayground } from "@/components/landing/landing-playground";
 import { LandingSection } from "@/components/landing/landing-section";
 import { MarketingFooter } from "@/components/marketing-footer";
 import { MarketingNav } from "@/components/marketing-nav";
-import {
-  bodyIntroClass,
-  landingCtaSurfaceClass,
-  sectionHeadingClass,
-} from "@/lib/landing-layout";
+import { bodyIntroClass, sectionHeadingClass } from "@/lib/landing-layout";
 
 const features = [
   {
@@ -39,25 +35,6 @@ const features = [
   },
 ];
 
-const steps = [
-  {
-    step: "1",
-    title: "Download & install",
-    description: "Open the DMG and drag Meecanico to Applications.",
-  },
-  {
-    step: "2",
-    title: "Grant Input Monitoring",
-    description:
-      "Required for global key detection — we only read key codes, never typed text.",
-  },
-  {
-    step: "3",
-    title: "Pick a switch & type",
-    description: "Choose a profile from the menu bar and type anywhere on your Mac.",
-  },
-];
-
 export function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -74,32 +51,6 @@ export function LandingPage() {
         </LandingSection>
 
         <LandingSection id="features">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className={sectionHeadingClass}>How it works</h2>
-            <p className={`mt-4 ${bodyIntroClass}`}>
-              Three steps from download to thocky typing everywhere on macOS.
-            </p>
-          </div>
-          <ol className="mx-auto mt-12 max-w-2xl space-y-8">
-            {steps.map((item) => (
-              <li key={item.step} className="flex gap-5">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border/60 text-sm font-semibold">
-                  {item.step}
-                </div>
-                <div>
-                  <h3 className="font-heading text-base font-semibold">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {item.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </LandingSection>
-
-        <LandingSection>
           <div className="mx-auto max-w-3xl text-center">
             <h2 className={sectionHeadingClass}>Built for Mac typists</h2>
             <p className={`mt-4 ${bodyIntroClass}`}>
@@ -142,7 +93,6 @@ export function LandingPage() {
 
         <LandingSection
           id="switches"
-          className={landingCtaSurfaceClass}
           frameClassName="py-16 sm:py-20 md:py-24"
         >
           <div className="mx-auto max-w-2xl text-center">

@@ -7,6 +7,8 @@ export const TYPING_PHRASES = [
   "nineteen switch profiles from cherry kailh topre and more one menu bar icon",
 ];
 
+export const DEFAULT_TYPING_PHRASE = TYPING_PHRASES[0];
+
 export function randomTypingPhrase(): string {
   return TYPING_PHRASES[Math.floor(Math.random() * TYPING_PHRASES.length)];
 }

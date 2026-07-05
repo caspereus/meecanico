@@ -78,7 +78,7 @@ export function Keyboard({
       soundUrl={soundUrl}
       onKeyEvent={onKeyEvent}
     >
-      <div ref={containerRef} className={cn("inline-block", className)}>
+      <div ref={containerRef} className={cn("inline-block", className)} data-keyboard-root>
         <KeyboardLayout />
       </div>
     </KeyboardProvider>
@@ -330,6 +330,11 @@ function KeyboardProvider({
       if (event.repeat) {
         return;
       }
+
+      if (event.code === "Space") {
+        event.preventDefault();
+      }
+
       pressKey(event.code, "physical");
     };
 
@@ -913,9 +918,9 @@ const MINT_DARK_KEYS: KEYCODE[] = [
 const KEYBOARD_THEMES: Record<KeyboardThemeName, KeyboardThemeDefinition> = {
   classic: {
     variants: {
-      accent: { bg: "#F57644", text: "rgba(0,0,0,0.5)" },
-      dark: { bg: "#737373", text: "rgba(255,255,255,0.7)" },
-      light: { bg: "#F5F5F5", text: "rgba(0,0,0,0.7)" },
+      accent: { bg: "#1E60FF", text: "rgba(255,255,255,0.85)" },
+      dark: { bg: "#1D4ED8", text: "rgba(255,255,255,0.85)" },
+      light: { bg: "#DBEAFE", text: "rgba(0,0,0,0.7)" },
     },
     keyVariantOverrides: buildKeyVariantOverrides({
       accent: [KEYCODE.Escape],

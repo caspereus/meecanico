@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
+
+import { GlobalClickSound } from "@/components/global-click-sound";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,7 +48,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${figtree.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <GlobalClickSound />
+        {children}
+      </body>
     </html>
   );
 }

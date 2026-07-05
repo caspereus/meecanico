@@ -7,6 +7,7 @@ import {
   calculateAccuracy,
   calculateWpm,
   codeToChar,
+  DEFAULT_TYPING_PHRASE,
   randomTypingPhrase,
   TYPING_TEST_DURATION_SEC,
   type CharState,
@@ -42,7 +43,7 @@ function createInitialState(phrase: string): TypingTestState {
 
 export function useTypingTest() {
   const [state, setState] = useState<TypingTestState>(() =>
-    createInitialState(randomTypingPhrase())
+    createInitialState(DEFAULT_TYPING_PHRASE)
   );
   const shiftRef = useRef(false);
   const startTimeRef = useRef<number | null>(null);

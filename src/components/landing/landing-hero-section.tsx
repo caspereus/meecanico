@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { LandingAtmosphere } from "@/components/landing/landing-atmosphere";
 import {
   bodyIntroClass,
   heroHeadingClass,
@@ -12,8 +11,7 @@ import {
 
 export function LandingHeroSection() {
   return (
-    <section className="relative border-b border-border/40">
-      <LandingAtmosphere />
+    <section className="relative border-b border-border/40 bg-background">
       <div className={landingShellClass}>
         <div className="border-x border-border/40">
           <div className={landingHeroContentClass}>

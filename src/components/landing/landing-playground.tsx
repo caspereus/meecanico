@@ -26,6 +26,24 @@ export function LandingPlayground() {
     containerRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const preventSpaceScroll = (event: KeyboardEvent) => {
+      if (event.code !== "Space" || event.target !== container) {
+        return;
+      }
+
+      event.preventDefault();
+    };
+
+    container.addEventListener("keydown", preventSpaceScroll);
+    return () => container.removeEventListener("keydown", preventSpaceScroll);
+  }, []);
+
   const onKeyEvent = useCallback(
     (event: KeyboardInteractionEvent) => {
       if (soundEnabled) {
