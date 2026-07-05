@@ -3,7 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RotateCcw, Volume2, VolumeX } from "lucide-react";
 
-import { Keyboard, type KeyboardInteractionEvent } from "@/components/ui/keyboard";
+import { ThemeSelect } from "@/components/landing/theme-select";
+import {
+  DEFAULT_KEYBOARD_THEME,
+  KEYBOARD_THEME_OPTIONS,
+  Keyboard,
+  type KeyboardInteractionEvent,
+  type KeyboardThemeName,
+} from "@/components/ui/keyboard";
 import { SwitchSelect } from "@/components/landing/switch-select";
 import { TypingTestPrompt } from "@/components/landing/typing-test-prompt";
 import {
@@ -15,15 +22,42 @@ import { useSwitchSound } from "@/hooks/use-switch-sound";
 import { useTypingTest } from "@/hooks/use-typing-test";
 import { cn } from "@/lib/utils";
 
+const KEYBOARD_THEME_STORAGE_KEY = "meecanico-keyboard-theme";
+
+function readStoredTheme(): KeyboardThemeName {
+  if (typeof window === "undefined") {
+    return DEFAULT_KEYBOARD_THEME;
+  }
+
+  const stored = window.localStorage.getItem(KEYBOARD_THEME_STORAGE_KEY);
+  const match = KEYBOARD_THEME_OPTIONS.find((theme) => theme.id === stored);
+  if (match) {
+    return match.id;
+  }
+
+  return DEFAULT_KEYBOARD_THEME;
+}
+
 export function LandingPlayground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [profile, setProfile] = useState<SwitchProfile>(DEFAULT_SWITCH_PROFILE);
+  const [keyboardTheme, setKeyboardTheme] =
+    useState<KeyboardThemeName>(DEFAULT_KEYBOARD_THEME);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const { state, handleKeyEvent, restart } = useTypingTest();
   const { playSound } = useSwitchSound(profile, soundEnabled);
 
   useEffect(() => {
+    setKeyboardTheme(readStoredTheme());
+  }, []);
+
+  useEffect(() => {
     containerRef.current?.focus();
+  }, []);
+
+  const handleThemeChange = useCallback((theme: KeyboardThemeName) => {
+    setKeyboardTheme(theme);
+    window.localStorage.setItem(KEYBOARD_THEME_STORAGE_KEY, theme);
   }, []);
 
   useEffect(() => {
@@ -106,7 +140,7 @@ export function LandingPlayground() {
       <div className="mt-10 w-full overflow-x-auto py-2">
         <div className="mx-auto w-fit origin-top scale-[0.72] sm:scale-[0.88] md:scale-100">
           <Keyboard
-            theme="classic"
+            theme={keyboardTheme}
             enableHaptics={soundEnabled}
             enableSound={false}
             onKeyEvent={onKeyEvent}
@@ -119,11 +153,14 @@ export function LandingPlayground() {
       </p>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <SwitchSelect
-          profiles={DEMO_SWITCH_PROFILES}
-          selected={profile}
-          onSelect={setProfile}
-        />
+        <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+          <SwitchSelect
+            profiles={DEMO_SWITCH_PROFILES}
+            selected={profile}
+            onSelect={setProfile}
+          />
+          <ThemeSelect selected={keyboardTheme} onSelect={handleThemeChange} />
+        </div>
 
         <button
           type="button"

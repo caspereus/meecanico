@@ -998,6 +998,22 @@ const KEYBOARD_THEMES: Record<KeyboardThemeName, KeyboardThemeDefinition> = {
   },
 };
 
+export type KeyboardThemeOption = {
+  id: KeyboardThemeName;
+  name: string;
+  colors: [string, string, string];
+};
+
+export const KEYBOARD_THEME_OPTIONS: KeyboardThemeOption[] = (
+  Object.entries(KEYBOARD_THEMES) as [KeyboardThemeName, KeyboardThemeDefinition][]
+).map(([id, theme]) => ({
+  id,
+  name: id.charAt(0).toUpperCase() + id.slice(1),
+  colors: [theme.variants.accent.bg, theme.variants.dark.bg, theme.variants.light.bg],
+}));
+
+export const DEFAULT_KEYBOARD_THEME: KeyboardThemeName = "classic";
+
 function buildKeyVariantOverrides({
   accent = [],
   dark = [],
