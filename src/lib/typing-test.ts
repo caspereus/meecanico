@@ -11,8 +11,26 @@ export const TYPING_PHRASES = [
 
 export const DEFAULT_TYPING_PHRASE = TYPING_PHRASES[0];
 
-export function randomTypingPhrase(): string {
-  return TYPING_PHRASES[Math.floor(Math.random() * TYPING_PHRASES.length)];
+/** Stable SSR/hydration text — no randomness. */
+export const INITIAL_TYPING_TEXT = TYPING_PHRASES.join(" ");
+
+function shufflePhrases(phrases: readonly string[]): string[] {
+  const copy = [...phrases];
+
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+
+  return copy;
+}
+
+export function buildTypingText(phrases: readonly string[] = TYPING_PHRASES): string {
+  return shufflePhrases(phrases).join(" ");
+}
+
+export function appendTypingText(current: string): string {
+  return `${current} ${buildTypingText()}`;
 }
 
 export type CharState = "pending" | "correct" | "incorrect";

@@ -15,7 +15,10 @@ const footerColumns = [
   },
   {
     title: "Support",
-    links: [{ href: "mailto:hello@meecanico.app", label: "Contact" }],
+    links: [
+      { href: "mailto:hello@meecanico.app", label: "Contact" },
+      { href: "/attribution", label: "Attribution" },
+    ],
   },
 ];
 

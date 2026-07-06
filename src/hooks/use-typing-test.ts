@@ -4,11 +4,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { KeyboardInteractionEvent } from "@/components/ui/keyboard";
 import {
+  appendTypingText,
+  buildTypingText,
+  INITIAL_TYPING_TEXT,
   calculateAccuracy,
   calculateWpm,
   codeToChar,
-  DEFAULT_TYPING_PHRASE,
-  randomTypingPhrase,
   TYPING_TEST_DURATION_SEC,
   type CharState,
 } from "@/lib/typing-test";
@@ -43,7 +44,7 @@ function createInitialState(phrase: string): TypingTestState {
 
 export function useTypingTest() {
   const [state, setState] = useState<TypingTestState>(() =>
-    createInitialState(DEFAULT_TYPING_PHRASE)
+    createInitialState(INITIAL_TYPING_TEXT)
   );
   const shiftRef = useRef(false);
   const startTimeRef = useRef<number | null>(null);
@@ -205,21 +206,17 @@ export function useTypingTest() {
         };
 
         if (index >= current.phrase.length) {
-          const newPhrase = randomTypingPhrase();
-          const elapsedMs = startTimeRef.current
-            ? Date.now() - startTimeRef.current
-            : 0;
+          const extraText = appendTypingText(current.phrase).slice(
+            current.phrase.length
+          );
 
           return {
-            ...current,
-            phrase: newPhrase,
-            index: 0,
-            charStates: newPhrase.split("").map(() => "pending" as CharState),
-            correctChars,
-            incorrectChars,
-            wpm: calculateWpm(correctChars, elapsedMs),
-            accuracy: calculateAccuracy(correctChars, incorrectChars),
-            isRunning: true,
+            ...nextState,
+            phrase: current.phrase + extraText,
+            charStates: [
+              ...charStates,
+              ...extraText.split("").map(() => "pending" as CharState),
+            ],
           };
         }
 
@@ -233,7 +230,7 @@ export function useTypingTest() {
     clearTimer();
     startTimeRef.current = null;
     shiftRef.current = false;
-    setState(createInitialState(randomTypingPhrase()));
+    setState(createInitialState(buildTypingText()));
   }, [clearTimer]);
 
   useEffect(() => {

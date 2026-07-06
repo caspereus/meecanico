@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 import { cn } from "@/lib/utils";
 import type { TypingTestState } from "@/hooks/use-typing-test";
 
@@ -9,17 +11,34 @@ type TypingTestPromptProps = {
 
 export function TypingTestPrompt({ state }: TypingTestPromptProps) {
   const { phrase, index, charStates } = state;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    cursorRef.current?.scrollIntoView({
+      block: "nearest",
+      inline: "nearest",
+    });
+  }, [index, phrase.length]);
 
   return (
     <div
-      className="select-none break-words text-xl font-medium leading-relaxed tracking-wide sm:text-2xl sm:leading-loose md:text-3xl"
-      aria-label="Typing test prompt"
+      ref={containerRef}
+      className="h-full overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
+      <div
+        className="select-none break-words text-xl font-medium leading-relaxed tracking-wide sm:text-2xl sm:leading-loose md:text-3xl"
+        aria-label="Typing test prompt"
+      >
       {phrase.split("").map((char, i) => {
         const isCursor = i === index;
 
         return (
-          <span key={`${i}-${char}`} className="relative">
+          <span
+            key={i}
+            ref={isCursor ? cursorRef : undefined}
+            className="relative"
+          >
             {isCursor ? (
               <span
                 aria-hidden
@@ -41,10 +60,12 @@ export function TypingTestPrompt({ state }: TypingTestPromptProps) {
       })}
       {index === phrase.length ? (
         <span
+          ref={cursorRef}
           aria-hidden
           className="ml-px inline-block h-[1.1em] w-0.5 animate-pulse bg-brand align-middle"
         />
       ) : null}
+      </div>
     </div>
   );
 }
