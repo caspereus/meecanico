@@ -19,7 +19,7 @@ export function ChangelogHeroSection() {
               Version history and release notes for Meecanico on macOS.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-3 sm:mt-12">
-              <DownloadCtaButton />
+              <DownloadCtaButton source="changelog-hero" />
             </div>
           </div>
         </div>

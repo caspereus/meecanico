@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import { GlobalClickSound } from "@/components/global-click-sound";
 import "./globals.css";
@@ -48,6 +49,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <GlobalClickSound />
         {children}
+        <Analytics />
       </body>
     </html>
   );

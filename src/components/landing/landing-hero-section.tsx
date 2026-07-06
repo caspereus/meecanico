@@ -22,7 +22,7 @@ export function LandingHeroSection() {
               Mechanical switch sounds in every app. 19 profiles to choose from.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3 sm:mt-10">
-              <DownloadCtaButton />
+              <DownloadCtaButton source="hero" />
               <SectionAnchorButton sectionId="try" variant="secondary">
                 Try it
               </SectionAnchorButton>

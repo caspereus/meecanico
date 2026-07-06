@@ -106,7 +106,7 @@ export function ChangelogPage() {
                   Download Meecanico for the newest switch profiles and fixes.
                 </p>
                 <div className="mt-6 flex justify-center">
-                  <DownloadCtaButton />
+                  <DownloadCtaButton source="changelog-sidebar" />
                 </div>
               </div>
             </div>

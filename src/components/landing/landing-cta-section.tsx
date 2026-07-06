@@ -14,7 +14,7 @@ export function LandingCtaSection() {
         in every app you type in.
       </p>
       <div className="mt-8 flex justify-center">
-        <DownloadCtaButton />
+        <DownloadCtaButton source="cta" />
       </div>
     </LandingSection>
   );

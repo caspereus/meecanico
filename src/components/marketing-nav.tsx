@@ -50,7 +50,7 @@ export function MarketingNav() {
               >
                 Changelog
               </Button>
-              <DownloadCtaButton nav />
+              <DownloadCtaButton nav source="nav" />
             </div>
           </div>
         </div>
