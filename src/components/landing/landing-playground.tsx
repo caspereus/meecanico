@@ -57,7 +57,7 @@ export function LandingPlayground() {
   }, []);
 
   useEffect(() => {
-    containerRef.current?.focus();
+    containerRef.current?.focus({ preventScroll: true });
   }, []);
 
   const handleThemeChange = useCallback((theme: KeyboardThemeName) => {
@@ -100,7 +100,7 @@ export function LandingPlayground() {
 
   const handleRestart = useCallback(() => {
     stageRef.current?.restart();
-    containerRef.current?.focus();
+    containerRef.current?.focus({ preventScroll: true });
   }, []);
 
   return (

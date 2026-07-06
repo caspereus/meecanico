@@ -27,35 +27,35 @@ export const changelogReleases: ChangelogRelease[] = [
     entries: [
       {
         category: "added",
-        text: "Global mechanical keyboard sounds across every macOS app.",
+        text: "Mechanical keyboard sounds in any Mac app.",
       },
       {
         category: "added",
-        text: "19 switch profiles across 11 brands, with in-menu audio preview.",
+        text: "19 switch profiles with preview.",
       },
       {
         category: "added",
-        text: "3D spatial audio with per-key positioning on a virtual keyboard.",
+        text: "3D spatial audio per key.",
       },
       {
         category: "added",
-        text: "Menu bar app with profile picker, volume control, and quick mute.",
+        text: "Menu bar controls for profiles, volume, and mute.",
       },
       {
         category: "added",
-        text: "Optional floating WPM/KPM typing visualizer with themes.",
+        text: "Optional WPM/KPM visualizer.",
       },
       {
         category: "added",
-        text: "Global hotkeys to toggle Meecanico and cycle sound profiles.",
+        text: "Global hotkeys to toggle and switch profiles.",
       },
       {
         category: "added",
-        text: "Privacy-first architecture — key codes only, no network, no analytics.",
+        text: "No keystroke logging, network, or analytics.",
       },
       {
         category: "added",
-        text: "Input Monitoring onboarding flow with clear permission guidance.",
+        text: "Guided Input Monitoring setup.",
       },
     ],
   },

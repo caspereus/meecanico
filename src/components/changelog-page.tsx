@@ -41,7 +41,7 @@ export function ChangelogPage() {
                   key={release.version}
                   href={`#v${release.version}`}
                   className={cn(
-                    "inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-sm tabular-nums transition-colors duration-[var(--duration-quick)]",
+                    "inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm tabular-nums transition-colors duration-[var(--duration-quick)]",
                     index === 0
                       ? "border-primary/30 bg-primary/10 font-semibold text-primary"
                       : "border-border/60 text-muted-foreground hover:border-border hover:bg-muted/50 hover:text-foreground"
@@ -68,7 +68,7 @@ export function ChangelogPage() {
                       <a
                         href={`#v${release.version}`}
                         className={cn(
-                          "group flex items-center justify-between rounded-lg px-2.5 py-2 font-mono text-sm tabular-nums transition-colors duration-[var(--duration-quick)]",
+                          "group flex items-center justify-between rounded-lg px-2.5 py-2 text-sm tabular-nums transition-colors duration-[var(--duration-quick)]",
                           index === 0
                             ? "bg-primary/10 font-semibold text-primary"
                             : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"

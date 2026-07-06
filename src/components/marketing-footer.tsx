@@ -66,8 +66,16 @@ export function MarketingFooter() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border/40 pt-6 text-sm text-muted-foreground">
-          Copyright © 2026 Meecanico
+        <div className="mt-10 flex flex-col gap-2 border-t border-border/40 pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span>Copyright © 2026 Meecanico</span>
+          <a
+            href="https://ialdyksma.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-foreground"
+          >
+            ialdyksma.dev
+          </a>
         </div>
       </div>
     </footer>
