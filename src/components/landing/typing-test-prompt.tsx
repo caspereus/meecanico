@@ -15,16 +15,82 @@ export function TypingTestPrompt({ state }: TypingTestPromptProps) {
   const cursorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    cursorRef.current?.scrollIntoView({
-      block: "nearest",
-      inline: "nearest",
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const blockManualScroll = (event: Event) => {
+      event.preventDefault();
+    };
+
+    container.addEventListener("wheel", blockManualScroll, {
+      passive: false,
+      capture: true,
     });
+    container.addEventListener("touchmove", blockManualScroll, {
+      passive: false,
+      capture: true,
+    });
+
+    return () => {
+      container.removeEventListener("wheel", blockManualScroll, true);
+      container.removeEventListener("touchmove", blockManualScroll, true);
+    };
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+
+    let frame = 0;
+
+    const syncScroll = () => {
+      const cursor = cursorRef.current;
+      if (!cursor) {
+        return;
+      }
+
+      if (index === 0) {
+        container.scrollTop = 0;
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const cursorRect = cursor.getBoundingClientRect();
+      const cursorAbove = cursorRect.bottom < containerRect.top;
+      const cursorBelow = cursorRect.top > containerRect.bottom;
+
+      if (cursorAbove || cursorBelow) {
+        cursor.scrollIntoView({ block: "nearest", inline: "nearest" });
+        return;
+      }
+
+      const cursorCenter =
+        cursorRect.top -
+        containerRect.top +
+        container.scrollTop +
+        cursorRect.height / 2;
+      const containerMid = container.clientHeight / 2;
+
+      if (cursorCenter > containerMid) {
+        container.scrollTop = cursorCenter - containerMid;
+      }
+    };
+
+    frame = window.requestAnimationFrame(() => {
+      frame = window.requestAnimationFrame(syncScroll);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, [index, phrase.length]);
 
   return (
     <div
       ref={containerRef}
-      className="h-full overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="h-full touch-none overflow-y-auto overscroll-none [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <div
         className="select-none break-words text-xl font-medium leading-relaxed tracking-wide sm:text-2xl sm:leading-loose md:text-3xl"

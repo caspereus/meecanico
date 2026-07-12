@@ -10,6 +10,7 @@ const footerColumns = [
     title: "Product",
     links: [
       { href: "/#features", label: "Features" },
+      { href: "/type", label: "Typing focus" },
       { href: "/changelog", label: "Changelog" },
     ],
   },

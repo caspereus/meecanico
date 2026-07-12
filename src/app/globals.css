@@ -137,6 +137,7 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.62 0.15 238);
+  --link: #5eb8f0;
   --brand: oklch(0.62 0.15 238);
   --brand-foreground: oklch(0.15 0.03 260);
   --sidebar: oklch(0.22 0.03 260);
